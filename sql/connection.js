@@ -2,8 +2,8 @@ const mysql = require('mysql2');
 const config = {
     host: 'localhost',
     user: 'root',
-    password: 'root',
-    database: 'spotify_wrapped'
+    password: 'Memin_2522',
+    database: 'droptodrop'
 };
 
 class SqlConnection{
