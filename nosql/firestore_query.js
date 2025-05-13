@@ -8,7 +8,7 @@ import {
     startAt,
     endAt,
     getDocs
-} from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+} from 'firebase/firestore';
 
 export class FirestoreQuery {
     constructor(collectionName) {
