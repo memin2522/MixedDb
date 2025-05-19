@@ -4,7 +4,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import { FirestoreService } from './nosql/firestore_service.js';
-import SqlConnection from './sql/connection.js';
+import SqlConnection from './SQL/connection.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -89,6 +89,28 @@ app.get('/user/:username', async (req, res) => {
   } catch (err) {
     console.error("SQL error:", err);
     res.status(500).send("Error retrieving user.");
+  }
+});
+
+app.post('/uploadsql', async (req, res) => {
+  const { username, password } = req.body;
+  if (!username || !password) return res.status(400).send("Missing fields.");
+
+  
+  const data = {
+    username: username,
+    password: password
+  }
+
+  try {
+    const db = new FirestoreService("Users");
+    await db.PostDocument(username, data);
+    res.status(200).send("User registered.");
+  } catch (err) {
+    console.error("noSQL error:", err);-
+    res.status(500).send("Error registering user.");
+  } finally {
+    await db.closeConnection();
   }
 });
 
